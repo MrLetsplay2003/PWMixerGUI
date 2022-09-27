@@ -20,19 +20,30 @@ repositories {
 	}
 }
 
+ext {
+	javafxVersion = "18"
+}
+
 sourceCompatibility = 11
 targetCompatibility = 11
 
 application {
 	applicationDefaultJvmArgs = ["-Djava.library.path=" + file("${buildDir}/libs/pwmixerj/shared").absolutePath]
-	getMainClass().set("me.mrletsplay.pwmixer.PWMixerMain")
+	getMainClass().set("me.mrletsplay.pwmixergui.PWMixerGUILauncher")
 }
 
 dependencies {
 	testImplementation 'junit:junit:4.12'
 	implementation 'me.mrletsplay:MrCore:4.1'
-	compileOnly 'org.openjfx:javafx-base:11'
 	compileOnly 'me.mrletsplay:FXLoader:1.1'
+	compileOnly group: 'org.openjfx', name: 'javafx-base', version: "${javafxVersion}"
+	compileOnly group: 'org.openjfx', name: 'javafx-base', version: "${javafxVersion}", classifier: 'linux'
+	compileOnly group: 'org.openjfx', name: 'javafx-graphics', version: "${javafxVersion}"
+	compileOnly group: 'org.openjfx', name: 'javafx-graphics', version: "${javafxVersion}", classifier: 'linux'
+	compileOnly group: 'org.openjfx', name: 'javafx-fxml', version: "${javafxVersion}"
+	compileOnly group: 'org.openjfx', name: 'javafx-fxml', version: "${javafxVersion}", classifier: 'linux'
+	compileOnly group: 'org.openjfx', name: 'javafx-controls', version: "${javafxVersion}"
+	compileOnly group: 'org.openjfx', name: 'javafx-controls', version: "${javafxVersion}", classifier: 'linux'
 }
 
 compileJava {

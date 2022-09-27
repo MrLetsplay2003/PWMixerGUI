@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="460.0" prefWidth="175.0" style="-fx-background-color: #2f2f2f;" styleClass="channel" stylesheets="@ui.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.mrletsplay.jjack.controller.JJackSingleInputChannelController">
+   <children>
+      <Label fx:id="channelName" layoutX="53.0" layoutY="14.0" text="Channel #1" textAlignment="CENTER" textFill="#d3c4c4" AnchorPane.bottomAnchor="428.0" AnchorPane.rightAnchor="52.0" />
+      <Slider fx:id="volume" layoutX="59.0" layoutY="50.0" max="125.0" minorTickCount="4" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="volume-slider" value="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="59.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="50.0" />
+      <Slider fx:id="volumeOut" layoutX="37.0" layoutY="134.0" orientation="VERTICAL" styleClass="volume-out-slider" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="50.0" />
+   </children>
+</AnchorPane>
