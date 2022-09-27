@@ -1,0 +1,17 @@
+task compile {
+	doFirst {
+		exec {
+			workingDir 'PWMixer'
+			commandLine 'sh', '-c', 'make all'
+		}
+	}
+}
+
+task clean {
+	doFirst {
+		exec {
+			workingDir 'PWMixer'
+			commandLine 'sh', '-c', 'make clean'
+		}
+	}
+}

@@ -1,0 +1,120 @@
+import org.gradle.internal.jvm.Jvm
+
+plugins {
+	id 'java'
+	id 'application'
+	id 'c'
+	id 'me.mrletsplay.fxbuild' version '1.0'
+	id 'com.github.johnrengelman.shadow' version '7.1.2'
+	id 'eclipse'
+}
+
+group 'me.mrletsplay'
+version '1.0'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+	maven {
+		url "https://maven.graphite-official.com"
+	}
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+application {
+	applicationDefaultJvmArgs = ["-Djava.library.path=" + file("${buildDir}/libs/pwmixerj/shared").absolutePath]
+	getMainClass().set("me.mrletsplay.pwmixer.PWMixerMain")
+}
+
+dependencies {
+	testImplementation 'junit:junit:4.12'
+	implementation 'me.mrletsplay:MrCore:4.1'
+	compileOnly 'org.openjfx:javafx-base:11'
+	compileOnly 'me.mrletsplay:FXLoader:1.1'
+}
+
+compileJava {
+	source = "src/main/java"
+	classpath = sourceSets.main.compileClasspath
+
+	options.encoding = "UTF-8"
+}
+
+sourceSets {
+	main {
+		resources {
+			srcDirs "${buildDir}/libs/pwmixerj/shared/"
+		}
+	}
+}
+
+model {
+	platforms {
+		x64 {
+			architecture "x86_64"
+		}
+	}
+
+	repositories {
+		libs(PrebuiltLibraries) {
+			libpwmixer {
+				headers.srcDir "${rootDir}/dependencies/PWMixer/src/pwmixer/"
+				binaries.withType(StaticLibraryBinary) {
+					staticLibraryFile = file("${rootDir}/dependencies/PWMixer/lib/libpwmixer.a")
+				}
+			}
+			pipewire {
+				headers.srcDir "/usr/include/pipewire-0.3/"
+				binaries.withType(SharedLibraryBinary) {
+					sharedLibraryFile = file("/usr/lib64/libpipewire-0.3.so.0")
+				}
+			}
+		}
+	}
+
+	components {
+		pwmixerj(NativeLibrarySpec) {
+			targetPlatform "x64"
+
+			sources {
+				c {
+					lib library: 'libpwmixer', linkage: 'static'
+					lib library: 'pipewire', linkage: 'shared'
+					source {
+						srcDir "src/main/c"
+					}
+				}
+			}
+
+			binaries.all {
+				def jvmHome = Jvm.current().javaHome
+
+				cCompiler.args '-I', file("${buildDir}/generated/sources/headers/java/main").absolutePath
+				cCompiler.args '-I', file("${rootDir}/dependencies/PWMixer/src/pwmixer/").absolutePath
+				cCompiler.args '-Wall'
+
+				if (targetPlatform.operatingSystem.macOsX) {
+					cCompiler.args '-I', "${jvmHome}/include"
+					cCompiler.args '-I', "${jvmHome}/include/darwin"
+					cCompiler.args '-mmacosx-version-min=10.4'
+					linker.args '-mmacosx-version-min=10.4'
+				} else if (targetPlatform.operatingSystem.linux) {
+					cCompiler.args '-I', "${jvmHome}/include"
+					cCompiler.args '-I', "${jvmHome}/include/linux"
+					cCompiler.args '-D_FILE_OFFSET_BITS=64'
+				} else if (targetPlatform.operatingSystem.windows) {
+					cCompiler.args "-I${jvmHome}/include"
+					cCompiler.args "-I${jvmHome}/include/win32"
+				} else if (targetPlatform.operatingSystem.freeBSD) {
+					cCompiler.args '-I', "${jvmHome}/include"
+					cCompiler.args '-I', "${jvmHome}/include/freebsd"
+				}
+			}
+		}
+	}
+}
+
+processResources.dependsOn ':dependencies:compile'
+processResources.dependsOn 'pwmixerjSharedLibrary'

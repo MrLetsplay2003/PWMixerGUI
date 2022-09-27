@@ -1,0 +1,3 @@
+[submodule "dependencies/PWMixer"]
+	path = dependencies/PWMixer
+	url = https://github.com/MrLetsplay2003/PWMixer.git
