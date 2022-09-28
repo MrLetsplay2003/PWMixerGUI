@@ -55,7 +55,7 @@ public class PWMixer {
 
 	private static native void ioSetVolume0(long id, float volume);
 
-	private static void ioSetConnectionVolume(PWMInput input, PWMOutput output, float volume) {
+	public static void ioSetConnectionVolume(PWMInput input, PWMOutput output, float volume) {
 		ioSetConnectionVolume0(input.id, output.id, volume);
 	}
 

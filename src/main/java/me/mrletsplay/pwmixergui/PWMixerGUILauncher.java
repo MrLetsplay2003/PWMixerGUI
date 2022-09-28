@@ -1,6 +1,5 @@
 package me.mrletsplay.pwmixergui;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystem;
@@ -25,8 +24,6 @@ public class PWMixerGUILauncher {
 		}
 
 		System.load(pwmixerj.toString());
-
-		Color c = new Color(0);
 
 		String[] copy = new String[args.length + 1];
 		copy[0] = "pwmixerj";

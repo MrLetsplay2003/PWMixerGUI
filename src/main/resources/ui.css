@@ -1,3 +1,129 @@
+* {
+	-fx-text-fill: white;
+	-fx-darker: #212121;
+	-fx-dark: #303030;
+	-fx-light: #424242;
+	-fx-highlight: #1a5fb4;
+	-fx-highlight-transparent: #1a5fb422;
+}
+
+.channel:selected {
+	-fx-background-color: -fx-highlight-transparent;
+}
+
+.content-pane {
+	-fx-background-color: -fx-dark;
+}
+
+.dialog-pane, .list-view {
+	-fx-background-color: -fx-dark;
+}
+
+.list-cell {
+	-fx-background-color: -fx-dark;
+}
+
+.list-cell:selected {
+	-fx-background-color: -fx-light;
+}
+
+.list-cell:focused:selected {
+	-fx-background-color: -fx-highlight;
+}
+
+.dialog-pane:header .header-panel {
+	-fx-background-color: -fx-darker;
+}
+
+.button, .combo-box, .combo-box .list-cell {
+	-fx-background-color: -fx-light;
+}
+
+.combo-box > .list-cell {
+	-fx-background-color: transparent;
+}
+
+.combo-box .list-cell:hover {
+	-fx-background-color: -fx-highlight;
+}
+
+.check-box .box {
+	-fx-background-color: -fx-light;
+}
+
+.check-box .mark {
+	-fx-background-color: transparent;
+}
+
+.check-box:selected .mark {
+	-fx-background-color: white;
+}
+
+.button:focused, .check-box:focused > .box, .combo-box-base:focused {
+	-fx-background-color: -fx-highlight, transparent, -fx-light, -fx-highlight-transparent, -fx-light;
+}
+
+.text-input:focused {
+	-fx-background-color: -fx-highlight, -fx-light, -fx-highlight-transparent, -fx-light;
+}
+
+.combo-box .arrow {
+	-fx-background-color: white;
+}
+
+.tab-header-background {
+	-fx-background-color: -fx-darker;
+}
+
+.tab {
+	-fx-background-color: -fx-dark, -fx-light, -fx-light;
+}
+
+.tab:selected {
+	-fx-background-color: -fx-highlight-transparent, -fx-highlight, -fx-highlight;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+	-fx-border-color: -fx-highlight, -fx-highlight-transparent;
+}
+
+.account-item, .installation-item, .mirror-item {
+	-fx-background-color: -fx-dark;
+}
+
+.accounts-box, .installations-box, .mirrors-box {
+	-fx-background-color: -fx-dark;
+}
+
+.scroll-bar {
+	-fx-background-color: -fx-darker;
+}
+
+.scroll-bar .thumb {
+	-fx-background-color: -fx-light;
+}
+
+.scroll-pane, .scroll-pane > .viewport {
+	-fx-background-color: -fx-dark;
+}
+
+.content-scroll {
+	-fx-effect: innershadow(gaussian, #00000033, 10, 0.5, 0, 0);
+}
+
+.text-area .scroll-pane {
+	-fx-background-color: -fx-dark;
+}
+
+.text-area .content {
+	-fx-background-color: -fx-dark;
+	-fx-background-radius: 0px;
+}
+
+.text-field {
+	-fx-background-color: -fx-light;
+}
+
 .volume-slider .axis .axis-tick-mark, .volume-slider .axis .axis-minor-tick-mark {
 	-fx-stroke: gray;
 }
@@ -21,6 +147,35 @@
 	-fx-background-radius: 50%;
 	-fx-opacity: 0.5;
 }
+
+.menu-bar, .context-menu {
+	-fx-background-color:  -fx-darker;
+}
+
+.menu-bar .menu:showing, .menu-bar .menu:hover {
+	-fx-background-color: -fx-highlight;
+}
+
+.menu-bar .menu .label {
+	-fx-text-fill: white;
+}
+
+.menu-bar .menu .menu-item:focused {
+	-fx-background-color: -fx-highlight;
+}
+
+.volume-out-slider .track {
+	-fx-background-color: black;
+	-fx-background-radius: 0;
+}
+
+.volume-out-slider .thumb {
+	-fx-background-radius: 0;
+	-fx-background-color: red;
+	-fx-padding: 3.5px;
+}
+
+/*
 
 .device-combo {
 	-fx-background-color: white;
@@ -47,32 +202,7 @@
 	-fx-background-color: lightblue;
 }
 
-.menu-bar {
-	-fx-background-color:  white;
-}
 
-.menu-bar .menu:showing, .menu-bar .menu:hover {
-	-fx-background-color: lightblue;
-}
-
-.menu-bar .menu .label {
-	-fx-text-fill: #2f2f2f;
-}
-
-.menu-bar .menu .menu-item:focused {
-	-fx-background-color: lightblue;
-}
-
-.volume-out-slider .track {
-	-fx-background-color: black;
-	-fx-background-radius: 0;
-}
-
-.volume-out-slider .thumb {
-	-fx-background-radius: 0;
-	-fx-background-color: red;
-	-fx-padding: 3.5px;
-}
 
 .remove-button {
 	-fx-background-color: white;
@@ -86,4 +216,4 @@
 	-fx-background-radius: 0;
 	-fx-text-fill: #2f2f2f;
 	-fx-padding: 0.5px 4px 0.5px 4px;
-}
+}*/
