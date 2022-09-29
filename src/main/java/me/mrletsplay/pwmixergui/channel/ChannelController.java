@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
+import me.mrletsplay.pwmixer.PWMixer;
 import me.mrletsplay.pwmixergui.PWMixerGUI;
 
 public class ChannelController {
@@ -44,11 +45,19 @@ public class ChannelController {
 
 		buttonSelect.disableProperty().bind(noChannelSelected);
 		sliderVolume.disableProperty().bind(inputNotConnected);
+		sliderVolume.valueProperty().addListener(v -> {
+			OutputChannel out = PWMixerGUI.selectedChannel.get();
+			PWMixer.ioSetConnectionVolume(input.getInput(), out.getOutput(), (float) sliderVolume.getValue() / 100f);
+		});
 	}
 
 	public void init(OutputChannel channel) {
 		this.output = channel;
 		setName(channel.getName());
+
+		sliderVolume.valueProperty().addListener(v -> {
+			PWMixer.ioSetVolume(output.getOutput(), (float) sliderVolume.getValue() / 100f);
+		});
 	}
 
 	private void setName(String name) {
