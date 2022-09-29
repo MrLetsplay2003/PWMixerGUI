@@ -31,22 +31,27 @@ public class Channels {
 
 	public static void removeInput(InputChannel input) {
 		inputs.remove(input);
-		outputs.forEach(o -> o.removeInput(input));
+		outputs.forEach(o -> o.removeConnection(input));
 		PWMixerGUI.controller.removeInput(input);
 	}
 
 	public static void removeOutput(OutputChannel output) {
 		outputs.remove(output);
-		inputs.forEach(o -> o.removeOutput(output));
+		inputs.forEach(o -> o.removeConnection(output));
 		PWMixerGUI.controller.removeOutput(output);
 	}
 
 	public static void connect(InputChannel in, OutputChannel out) {
 		PWMixer.ioConnect(in.getInput(), out.getOutput());
+		ChannelConnection con = new ChannelConnection(in, out);
+		in.addConnection(con);
+		out.addConnection(con);
 	}
 
 	public static void disconnect(InputChannel in, OutputChannel out) {
 		PWMixer.ioDisconnect(in.getInput(), out.getOutput());
+		in.removeConnection(out);
+		out.removeConnection(in);
 	}
 
 	public static List<InputChannel> getInputs() {

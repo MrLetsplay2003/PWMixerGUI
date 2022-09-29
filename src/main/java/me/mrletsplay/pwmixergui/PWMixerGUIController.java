@@ -31,6 +31,7 @@ public class PWMixerGUIController {
 			boxInputs.getChildren().add(p);
 			ChannelController c = loader.getController();
 			c.init(channel);
+			channel.setController(c);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,6 +45,7 @@ public class PWMixerGUIController {
 			boxOutputs.getChildren().add(p);
 			ChannelController c = loader.getController();
 			c.init(channel);
+			channel.setController(c);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

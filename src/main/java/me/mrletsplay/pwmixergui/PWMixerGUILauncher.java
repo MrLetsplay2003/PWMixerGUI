@@ -29,17 +29,7 @@ public class PWMixerGUILauncher {
 		copy[0] = "pwmixerj";
 
 		PWMixer.sysConnect(copy);
-		PWMixer.debugEnableLog(true);
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> PWMixer.sysDisconnect()));
-
-//		PWMInput in = PWMixer.ioCreateInput("To Out + Out2", false);
-//		PWMInput in2 = PWMixer.ioCreateInput("To Out2 only", true);
-//		PWMOutput out = PWMixer.ioCreateOutput("Out", true);
-//		PWMOutput out2 = PWMixer.ioCreateOutput("Out2", false);
-//
-//		PWMixer.ioConnect(in, out);
-//		PWMixer.ioConnect(in, out2);
-//		PWMixer.ioConnect(in2, out2);
 
 		Application.launch(PWMixerGUI.class, args);
 	}

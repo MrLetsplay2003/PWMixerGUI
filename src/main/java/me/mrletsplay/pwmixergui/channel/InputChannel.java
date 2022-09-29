@@ -15,4 +15,12 @@ public class InputChannel extends Channel {
 		return input;
 	}
 
+	public ChannelConnection getConnection(OutputChannel out) {
+		return connections.stream().filter(con -> con.getOutput().equals(out)).findFirst().orElse(null);
+	}
+
+	public void removeConnection(OutputChannel out) {
+		connections.removeIf(con -> con.getOutput().equals(out));
+	}
+
 }

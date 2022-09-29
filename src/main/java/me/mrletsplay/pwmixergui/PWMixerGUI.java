@@ -1,20 +1,30 @@
 package me.mrletsplay.pwmixergui;
 
 import javafx.application.Application;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import me.mrletsplay.pwmixergui.channel.ChannelConnection;
 import me.mrletsplay.pwmixergui.channel.Channels;
+import me.mrletsplay.pwmixergui.channel.OutputChannel;
 
 public class PWMixerGUI extends Application {
 
 	public static Stage stage;
 	public static PWMixerGUIController controller;
+	public static ObjectProperty<OutputChannel> selectedChannel;
+	public static ListProperty<ChannelConnection> selectedChannelConnections;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
+		selectedChannel = new SimpleObjectProperty<>();
+		selectedChannelConnections = new SimpleListProperty<>();
 
 		FXMLLoader loader = new FXMLLoader(PWMixerGUI.class.getResource("/ui.fxml"));
 		Parent p = loader.load();

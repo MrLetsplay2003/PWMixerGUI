@@ -1,7 +1,7 @@
 package me.mrletsplay.pwmixergui.channel;
 
-import java.util.ArrayList;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Channel {
 
@@ -10,12 +10,12 @@ public class Channel {
 	private boolean isDevice;
 	private ChannelController controller;
 
-	private List<ChannelConnection> connections;
+	protected ObservableList<ChannelConnection> connections;
 
 	public Channel(String name, boolean isDevice) {
 		this.name = name;
 		this.isDevice = isDevice;
-		this.connections = new ArrayList<>();
+		this.connections = FXCollections.observableArrayList();
 	}
 
 	public long getID() {
@@ -38,16 +38,12 @@ public class Channel {
 		return controller;
 	}
 
+	public ObservableList<ChannelConnection> getConnections() {
+		return connections;
+	}
+
 	public void addConnection(ChannelConnection connection) {
 		connections.add(connection);
-	}
-
-	public void removeInput(InputChannel in) {
-		connections.removeIf(con -> con.getInput().equals(in));
-	}
-
-	public void removeOutput(OutputChannel out) {
-		connections.removeIf(con -> con.getOutput().equals(out));
 	}
 
 }
