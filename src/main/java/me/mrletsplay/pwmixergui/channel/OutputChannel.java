@@ -1,10 +1,12 @@
 package me.mrletsplay.pwmixergui.channel;
 
 import me.mrletsplay.pwmixer.PWMOutput;
+import me.mrletsplay.pwmixer.PWMixer;
 
 public class OutputChannel extends Channel {
 
 	private PWMOutput output;
+	private float volume;
 
 	public OutputChannel(PWMOutput output, String name, boolean isSource) {
 		super(name, isSource);
@@ -21,6 +23,15 @@ public class OutputChannel extends Channel {
 
 	public void removeConnection(InputChannel in) {
 		connections.removeIf(con -> con.getInput().equals(in));
+	}
+
+	public void setVolume(float volume) {
+		this.volume = volume;
+		PWMixer.ioSetVolume(output, volume);
+	}
+
+	public float getVolume() {
+		return volume;
 	}
 
 }

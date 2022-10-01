@@ -61,6 +61,16 @@ public class PWMixer {
 
 	private static native void ioSetConnectionVolume0(long input, long output, float volume);
 
+	public static float ioGetLastVolume(PWMInput input) {
+		return ioGetLastVolume0(input.id);
+	}
+
+	public static float ioGetLastVolume(PWMOutput output) {
+		return ioGetLastVolume0(output.id);
+	}
+
+	private static native float ioGetLastVolume0(long id);
+
 	public static native void debugEnableLog(boolean log);
 
 	public static native boolean debugIsLogEnabled();

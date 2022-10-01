@@ -1,5 +1,6 @@
 package me.mrletsplay.pwmixergui;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -9,8 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import me.mrletsplay.pwmixer.PWMixer;
 import me.mrletsplay.pwmixergui.channel.ChannelConnection;
 import me.mrletsplay.pwmixergui.channel.Channels;
+import me.mrletsplay.pwmixergui.channel.InputChannel;
 import me.mrletsplay.pwmixergui.channel.OutputChannel;
 
 public class PWMixerGUI extends Application {
@@ -40,6 +43,21 @@ public class PWMixerGUI extends Application {
 
 		Channels.createInput("Microphone In", false);
 		Channels.createOutput("System Out", false);
+
+		AnimationTimer t = new AnimationTimer() {
+
+			@Override
+			public void handle(long now) {
+				for(InputChannel c : Channels.getInputs()) {
+					c.getController().setVolumeDisplay(PWMixer.ioGetLastVolume(c.getInput()));
+				}
+
+				for(OutputChannel c : Channels.getOutputs()) {
+					c.getController().setVolumeDisplay(PWMixer.ioGetLastVolume(c.getOutput()));
+				}
+			}
+		};
+		t.start();
 	}
 
 }

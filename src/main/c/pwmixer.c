@@ -80,6 +80,11 @@ JNIEXPORT void JNICALL Java_me_mrletsplay_pwmixer_PWMixer_ioSetConnectionVolume0
 	pwm_ioSetConnectionVolume(in, out, volume);
 }
 
+JNIEXPORT jfloat JNICALL Java_me_mrletsplay_pwmixer_PWMixer_ioGetLastVolume0(JNIEnv *env, jclass clz, jlong id) {
+	pwm_IO *obj = pwm_ioGetByID(id);
+	return pwm_ioGetLastVolume(obj);
+}
+
 JNIEXPORT void JNICALL Java_me_mrletsplay_pwmixer_PWMixer_debugEnableLog(JNIEnv *env, jclass clz, jboolean log) {
 	pwm_debugEnableLog(log);
 }

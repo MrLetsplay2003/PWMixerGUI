@@ -47,7 +47,10 @@ public class ChannelController {
 		sliderVolume.disableProperty().bind(inputNotConnected);
 		sliderVolume.valueProperty().addListener(v -> {
 			OutputChannel out = PWMixerGUI.selectedChannel.get();
-			PWMixer.ioSetConnectionVolume(input.getInput(), out.getOutput(), (float) sliderVolume.getValue() / 100f);
+			if(out == null) return;
+			ChannelConnection con = out.getConnection(input);
+			if(con == null) return;
+			con.setVolume((float) Math.pow(sliderVolume.getValue() / 100, 2));
 		});
 	}
 
@@ -56,7 +59,7 @@ public class ChannelController {
 		setName(channel.getName());
 
 		sliderVolume.valueProperty().addListener(v -> {
-			PWMixer.ioSetVolume(output.getOutput(), (float) sliderVolume.getValue() / 100f);
+			PWMixer.ioSetVolume(output.getOutput(), (float) Math.pow(sliderVolume.getValue() / 100, 2));
 		});
 	}
 
@@ -66,6 +69,16 @@ public class ChannelController {
 
 	private void setSelected(boolean selected) {
 		paneBackground.pseudoClassStateChanged(SELECTED, selected);
+	}
+
+	public void setVolumeDisplay(float val) {
+		double newVal = Math.log((Math.E - 1) * val + 1) * 100;
+		double oldVal = sliderVolumeOut.getValue();
+		if(newVal < oldVal) {
+			sliderVolumeOut.setValue(oldVal - Math.min(-(newVal - oldVal), 1));
+		}else {
+			sliderVolumeOut.setValue(newVal);
+		}
 	}
 
 	@FXML
@@ -82,6 +95,14 @@ public class ChannelController {
 			setSelected(true);
 			PWMixerGUI.selectedChannel.set(output);
 			PWMixerGUI.selectedChannelConnections.set(output.getConnections());
+			Channels.getInputs().forEach(in -> {
+				ChannelConnection con = output.getConnection(in);
+				if(con == null) {
+					in.getController().sliderVolume.setValue(100);
+				}else {
+					in.getController().sliderVolume.setValue(Math.sqrt(con.getVolume()) * 100);
+				}
+			});
 		}
 	}
 

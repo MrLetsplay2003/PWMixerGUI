@@ -10,8 +10,6 @@ import java.nio.file.Paths;
 
 import javafx.application.Application;
 import me.mrletsplay.fxloader.FXLoader;
-import me.mrletsplay.pwmixer.PWMInput;
-import me.mrletsplay.pwmixer.PWMOutput;
 import me.mrletsplay.pwmixer.PWMixer;
 
 public class PWMixerGUILauncher {
@@ -32,10 +30,6 @@ public class PWMixerGUILauncher {
 
 		PWMixer.sysConnect(copy);
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> PWMixer.sysDisconnect()));
-
-		PWMInput in = PWMixer.ioCreateInput("in", true);
-		PWMOutput out = PWMixer.ioCreateOutput("out", false);
-		PWMixer.ioConnect(in, out);
 
 		Application.launch(PWMixerGUI.class, args);
 	}
