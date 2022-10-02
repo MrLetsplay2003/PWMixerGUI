@@ -6,8 +6,8 @@ public class InputChannel extends Channel {
 
 	private PWMInput input;
 
-	public InputChannel(PWMInput input, String name, boolean isSink) {
-		super(name, isSink);
+	public InputChannel(PWMInput input, long id, String name, boolean isSink) {
+		super(id, name, isSink);
 		this.input = input;
 	}
 

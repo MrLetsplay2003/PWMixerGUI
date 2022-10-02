@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import me.mrletsplay.pwmixer.PWMixer;
 import me.mrletsplay.pwmixergui.channel.ChannelConnection;
@@ -35,14 +36,14 @@ public class PWMixerGUI extends Application {
 
 		Scene sc = new Scene(p, 720, 480);
 		sc.getStylesheets().add("/ui.css");
+		primaryStage.getIcons().add(new Image(PWMixerGUI.class.getResourceAsStream("/icon.png")));
 		primaryStage.setTitle("PWMixerGUI");
 		primaryStage.setMinWidth(720);
 		primaryStage.setMinHeight(480);
 		primaryStage.setScene(sc);
 		primaryStage.show();
 
-		Channels.createInput("Microphone In", false);
-		Channels.createOutput("System Out", false);
+		Channels.createDefault();
 
 		AnimationTimer t = new AnimationTimer() {
 

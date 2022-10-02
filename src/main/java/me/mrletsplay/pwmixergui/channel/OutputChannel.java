@@ -8,8 +8,8 @@ public class OutputChannel extends Channel {
 	private PWMOutput output;
 	private float volume;
 
-	public OutputChannel(PWMOutput output, String name, boolean isSource) {
-		super(name, isSource);
+	public OutputChannel(PWMOutput output, long id, String name, boolean isSource) {
+		super(id, name, isSource);
 		this.output = output;
 	}
 

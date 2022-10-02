@@ -12,7 +12,8 @@ public class Channel {
 
 	protected ObservableList<ChannelConnection> connections;
 
-	public Channel(String name, boolean isDevice) {
+	public Channel(long id, String name, boolean isDevice) {
+		this.id = id;
 		this.name = name;
 		this.isDevice = isDevice;
 		this.connections = FXCollections.observableArrayList();

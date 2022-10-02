@@ -16,6 +16,11 @@ import me.mrletsplay.pwmixergui.PWMixerGUI;
 
 public class DialogHelper {
 
+	public static final int
+		YES = 1,
+		NO = 2,
+		CANCEL = 3;
+
 	public static void showWarning(String warning) {
 		Alert a = new Alert(AlertType.WARNING);
 		a.initOwner(PWMixerGUI.stage);
@@ -72,6 +77,19 @@ public class DialogHelper {
 		a.setContentText(message);
 		a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 		return a.showAndWait().orElse(null) == ButtonType.YES;
+	}
+
+	public static int showYesNoCancel(String message) {
+		Alert a = new Alert(AlertType.CONFIRMATION);
+		a.initOwner(PWMixerGUI.stage);
+		a.getButtonTypes().clear();
+		a.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+		a.setContentText(message);
+		a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+
+		ButtonType clicked = a.showAndWait().orElse(null);
+		if(clicked == null || clicked == ButtonType.CANCEL) return CANCEL;
+		return clicked == ButtonType.YES ? YES : NO;
 	}
 
 	public static int showChoice(String title, String message, String... choices) {
