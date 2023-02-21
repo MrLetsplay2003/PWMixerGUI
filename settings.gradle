@@ -10,7 +10,7 @@
 pluginManagement {
 	repositories {
 		maven {
-			url "https://maven.graphite-official.com"
+			url "https://maven.graphite-official.com/releases"
 		}
 		mavenLocal()
 		gradlePluginPortal()
