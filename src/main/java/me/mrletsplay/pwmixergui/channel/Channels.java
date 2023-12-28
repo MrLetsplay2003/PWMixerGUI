@@ -107,7 +107,7 @@ public class Channels {
 				for(Object c : oObj.getJSONArray("connections")) {
 					JSONObject con = (JSONObject) c;
 					ChannelConnection connection = connect(Channels.getInputByID(con.getLong("to")), out);
-					connection.setVolume((float) con.getDouble("volume"));
+					connection.setVolume(con.getDouble("volume").floatValue());
 				}
 			}
 		} catch (IOException e) {
