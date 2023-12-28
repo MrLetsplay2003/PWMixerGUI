@@ -1,9 +1,8 @@
 package me.mrletsplay.pwmixergui;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,8 +17,8 @@ public class PWMixerGUILauncher {
 		Path libDir = Paths.get(FXLoader.getLibDirectory().getAbsolutePath());
 		Path pwmixerj = Paths.get(libDir.toString(), "libpwmixerj.so");
 		if(!Files.exists(pwmixerj)) {
-			try(FileSystem selfFS = FileSystems.newFileSystem(Paths.get(PWMixerGUILauncher.class.getProtectionDomain().getCodeSource().getLocation().toURI()), (ClassLoader) null)) {
-				Files.copy(selfFS.getPath("/libpwmixerj.so"), pwmixerj);
+			try(InputStream libIn = PWMixerGUILauncher.class.getResourceAsStream("/libpwmixerj.so")) {
+				Files.write(pwmixerj, libIn.readAllBytes());
 			}
 		}
 

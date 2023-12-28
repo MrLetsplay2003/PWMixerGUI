@@ -154,4 +154,9 @@ public class PWMixerGUIController {
 		}
 	}
 
+	@FXML
+	void menuAbout() {
+		DialogHelper.showInformation("PWMixerGUI & PWMixer were created by MrLetsplay2003\n\nSpecial thanks to: Palme11100");
+	}
+
 }

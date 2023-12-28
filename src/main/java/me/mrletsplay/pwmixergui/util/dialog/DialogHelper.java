@@ -21,6 +21,14 @@ public class DialogHelper {
 		NO = 2,
 		CANCEL = 3;
 
+	public static void showInformation(String warning) {
+		Alert a = new Alert(AlertType.INFORMATION);
+		a.initOwner(PWMixerGUI.stage);
+		a.setContentText(warning);
+		a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+		a.showAndWait();
+	}
+
 	public static void showWarning(String warning) {
 		Alert a = new Alert(AlertType.WARNING);
 		a.initOwner(PWMixerGUI.stage);

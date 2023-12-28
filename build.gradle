@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 	id 'application'
 	id 'c'
-	id 'me.mrletsplay.fxbuild' version '1.0'
+	id 'me.mrletsplay.fxbuild' version '1.1'
 	id 'com.github.johnrengelman.shadow' version '7.1.2'
 	id 'eclipse'
 }
@@ -34,7 +34,7 @@ application {
 
 dependencies {
 	testImplementation 'junit:junit:4.12'
-	implementation 'me.mrletsplay:MrCore:4.1'
+	implementation 'me.mrletsplay:MrCore:4.4'
 	compileOnly 'me.mrletsplay:FXLoader:1.1'
 	compileOnly group: 'org.openjfx', name: 'javafx-base', version: "${javafxVersion}"
 	compileOnly group: 'org.openjfx', name: 'javafx-base', version: "${javafxVersion}", classifier: 'linux'
