@@ -61,7 +61,7 @@ public class ChannelController {
 		setName(channel.getName());
 
 		sliderVolume.valueProperty().addListener(v -> {
-			PWMixer.ioSetVolume(output.getOutput(), (float) Math.pow(sliderVolume.getValue() / 100, 2));
+			PWMixer.ioSetVolume(output.getOutput(), (float) PWMixerUtil.convertPerceivedVolumeToVolumeMultiplier(sliderVolume.getValue() / 100));
 		});
 	}
 
@@ -103,7 +103,7 @@ public class ChannelController {
 				if(con == null) {
 					in.getController().sliderVolume.setValue(100);
 				}else {
-					in.getController().sliderVolume.setValue(Math.sqrt(con.getVolume()) * 100);
+					in.getController().sliderVolume.setValue(PWMixerUtil.convertVolumeMultiplierToPerceivedVolume(con.getVolume()) * 100);
 				}
 			});
 		}

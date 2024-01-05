@@ -22,6 +22,7 @@ public class PWMixerUtil {
 	 * <tr><td>0.5</td><td>0.1</td></tr>
 	 * <tr><td>1</td><td>1</td></tr>
 	 * <tr><td>2</td><td>10</td></tr>
+	 * <tr><td>4</td><td>100</td></tr>
 	 * </tbody>
 	 * </table>
 	 * @return A volume multiplier
@@ -44,9 +45,10 @@ public class PWMixerUtil {
 	 * <tr><td>0.1</td><td>0.5</td></tr>
 	 * <tr><td>1</td><td>1</td></tr>
 	 * <tr><td>10</td><td>2</td></tr>
+	 * <tr><td>100</td><td>4</td></tr>
 	 * </tbody>
 	 * </table>
-	 * @return A volume multiplier
+	 * @return A perceived volume
 	 */
 	public static double convertVolumeMultiplierToPerceivedVolume(double volumeMultiplier) {
 		return Math.pow(volumeMultiplier, LOG10_2);
