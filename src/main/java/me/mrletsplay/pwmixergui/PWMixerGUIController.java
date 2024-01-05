@@ -130,6 +130,18 @@ public class PWMixerGUIController {
 
 	@FXML
 	void menuSave(ActionEvent event) {
+		FileChooser chooser = new FileChooser();
+		chooser.setInitialDirectory(new File("."));
+		chooser.getExtensionFilters().add(new ExtensionFilter("JSON Files", "*.json"));
+		chooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*"));
+		File f = chooser.showSaveDialog(PWMixerGUI.stage);
+		if(f == null) return;
+
+		try {
+			Channels.save(f.toPath());
+		}catch(LoadException e) {
+			DialogHelper.showError("Failed to load", e);
+		}
 	}
 
 	boolean promptSave() {

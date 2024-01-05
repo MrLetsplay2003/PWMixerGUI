@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import me.mrletsplay.pwmixer.PWMixer;
+import me.mrletsplay.pwmixer.PWMixerUtil;
 import me.mrletsplay.pwmixergui.PWMixerGUI;
 
 public class ChannelController {
@@ -50,7 +51,8 @@ public class ChannelController {
 			if(out == null) return;
 			ChannelConnection con = out.getConnection(input);
 			if(con == null) return;
-			con.setVolume((float) Math.pow(sliderVolume.getValue() / 100, 2));
+
+			con.setVolume((float) PWMixerUtil.convertPerceivedVolumeToVolumeMultiplier(sliderVolume.getValue() / 100));
 		});
 	}
 
@@ -72,7 +74,7 @@ public class ChannelController {
 	}
 
 	public void setVolumeDisplay(float val) {
-		double newVal = Math.log((Math.E - 1) * val + 1) * 100;
+		double newVal = PWMixerUtil.convertVolumeMultiplierToPerceivedVolume(val) * 100;
 		double oldVal = sliderVolumeOut.getValue();
 		if(newVal < oldVal) {
 			sliderVolumeOut.setValue(oldVal - Math.min(-(newVal - oldVal), 1));
@@ -85,6 +87,7 @@ public class ChannelController {
 	void select(ActionEvent event) {
 		if(input != null) {
 			OutputChannel ch = PWMixerGUI.selectedChannel.get();
+
 			if(ch.getConnection(input) == null) {
 				Channels.connect(input, ch);
 			}else {

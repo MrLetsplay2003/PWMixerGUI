@@ -149,7 +149,7 @@ public class Channels {
 		obj.put("outputs", outs);
 
 		try {
-			Files.writeString(path, obj.toString(), StandardCharsets.UTF_8);
+			Files.writeString(path, obj.toFancyString(), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			throw new SaveException("Failed to save configuration", e);
 		}
