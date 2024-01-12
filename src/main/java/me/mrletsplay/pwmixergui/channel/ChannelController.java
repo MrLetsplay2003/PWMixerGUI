@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import me.mrletsplay.pwmixer.PWMixer;
 import me.mrletsplay.pwmixer.PWMixerUtil;
 import me.mrletsplay.pwmixergui.PWMixerGUI;
@@ -21,7 +21,7 @@ public class ChannelController {
 	private OutputChannel output;
 
 	@FXML
-	private AnchorPane paneBackground;
+	private VBox paneBackground;
 
 	@FXML
 	private Button buttonSelect;
