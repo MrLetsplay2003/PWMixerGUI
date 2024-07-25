@@ -42,6 +42,7 @@ public class PWMixerGUI extends Application {
 		primaryStage.setMinHeight(480);
 		primaryStage.setScene(sc);
 		primaryStage.show();
+		primaryStage.setOnCloseRequest(event -> System.exit(0));
 
 		Channels.createDefault();
 

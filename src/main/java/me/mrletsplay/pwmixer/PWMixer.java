@@ -2,6 +2,10 @@ package me.mrletsplay.pwmixer;
 
 public class PWMixer {
 
+	public static final int
+		PWM_CHANNELS = 2,
+		PWM_RATE = 44100;
+
 	public static native void sysConnect(String[] argv);
 	public static native void sysDisconnect();
 
@@ -70,6 +74,12 @@ public class PWMixer {
 	}
 
 	private static native float ioGetLastVolume0(long id);
+
+	public static void ioSetFilterFunction(PWMInput input, PWMOutput output, PWMFilterFunction filterFunction) {
+		ioSetFilterFunction0(input.id, output.id, filterFunction);
+	}
+
+	private static native void ioSetFilterFunction0(long input, long output, PWMFilterFunction filterFunction);
 
 	public static native void debugEnableLog(boolean log);
 

@@ -1,0 +1,5 @@
+# For clangd
+-Ibuild/generated/sources/headers/java/main/
+-Idependencies/PWMixer/src/pwmixer/
+-I/usr/lib/jvm/java/include/
+-I/usr/lib/jvm/java/include/linux/
