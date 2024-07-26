@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox fx:id="paneBackground" prefHeight="500.0" prefWidth="150.0" spacing="10.0" styleClass="channel" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.mrletsplay.pwmixergui.channel.ChannelController">
    <children>
       <HBox alignment="CENTER">
@@ -22,6 +21,7 @@
             <Slider fx:id="sliderVolume" max="200.0" minorTickCount="4" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="volume-slider" value="100.0" />
          </children>
       </HBox>
+      <Button fx:id="buttonFilters" layoutX="20.0" layoutY="474.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeFilters" text="Filters" />
       <Button fx:id="buttonSelect" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#select" text="Select" />
    </children>
    <padding>
