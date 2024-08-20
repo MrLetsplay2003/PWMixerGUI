@@ -3,6 +3,8 @@ package me.mrletsplay.pwmixergui.filter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +17,7 @@ import javafx.scene.layout.VBox;
 import me.mrletsplay.pwmixergui.PWMixerGUI;
 import me.mrletsplay.pwmixergui.channel.ChannelConnection;
 import me.mrletsplay.pwmixergui.exception.FilterException;
+import me.mrletsplay.pwmixergui.util.UIHelper;
 import me.mrletsplay.pwmixergui.util.dialog.DialogData;
 import me.mrletsplay.pwmixergui.util.dialog.SimpleInputDialog;
 
@@ -43,12 +46,15 @@ public class FiltersController {
 
 				vboxFilterList.getChildren().add(filterView);
 			}
+
+			UIHelper.setButtonImages(vboxFilterList);
 		}catch(IOException e) {}
 	}
 
 	@FXML
 	void addFilter(ActionEvent event) {
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>(Filters.FILTERS.keySet());
+		Collections.sort(filterClasses, Comparator.comparing(c -> c.getSimpleName()));
 		List<String> filterNames = filterClasses.stream().map(f -> f.getSimpleName()).collect(Collectors.toList());
 
 		SimpleInputDialog dialog = new SimpleInputDialog();
@@ -63,7 +69,7 @@ public class FiltersController {
 		}
 
 		filter.applyParameters();
-		Filters.showFilterDialog(filter);
+		if(!Filters.FILTERS.get(filter.getClass()).isEmpty()) Filters.showFilterDialog(filter);
 
 		connection.getFilters().add(filter);
 		connection.applyFilters();

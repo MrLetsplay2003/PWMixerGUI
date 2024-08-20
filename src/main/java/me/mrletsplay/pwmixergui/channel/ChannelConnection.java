@@ -51,6 +51,7 @@ public class ChannelConnection {
 
 	private void runFilters(float[] samples) {
 		for(Filter filter : filters) {
+			if(!filter.isActive()) continue;
 			filter.filter(samples);
 		}
 	}

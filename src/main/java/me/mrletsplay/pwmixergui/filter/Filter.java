@@ -9,9 +9,11 @@ import me.mrletsplay.pwmixer.PWMFilterFunction;
 public abstract class Filter implements PWMFilterFunction {
 
 	private Map<FilterParameter<?>, Object> parameters;
+	private boolean active;
 
 	public Filter() {
 		this.parameters = new HashMap<>();
+		this.active = true;
 	}
 
 	protected <T> void setParameter(FilterParameter<T> parameter, T value) {
@@ -27,6 +29,14 @@ public abstract class Filter implements PWMFilterFunction {
 	}
 
 	public abstract void applyParameters() throws IllegalStateException;
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
 	@Override
 	public String toString() {

@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import me.mrletsplay.pwmixergui.channel.ChannelConnection;
+import me.mrletsplay.pwmixergui.util.UIHelper;
 
 public class FilterController {
 
@@ -37,6 +38,7 @@ public class FilterController {
 		buttonUp.setDisable(filters.indexOf(filter) == 0);
 		buttonDown.setDisable(filters.indexOf(filter) == filters.size() - 1);
 		buttonEdit.setDisable(Filters.FILTERS.get(filter.getClass()).isEmpty());
+		buttonMute.setGraphic(UIHelper.loadIconView(filter.isActive() ? "volume-high.png" : "volume-off.png"));
 	}
 
 	@FXML
@@ -60,7 +62,9 @@ public class FilterController {
 
 	@FXML
 	void mute(ActionEvent event) {
-
+		filter.setActive(!filter.isActive());
+		buttonMute.setGraphic(UIHelper.loadIconView(filter.isActive() ? "volume-high.png" : "volume-off.png"));
+		UIHelper.setButtonImages(buttonMute);
 	}
 
 	@FXML
