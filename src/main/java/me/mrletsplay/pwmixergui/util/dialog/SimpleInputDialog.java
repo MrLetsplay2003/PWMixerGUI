@@ -19,6 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -43,7 +44,11 @@ public class SimpleInputDialog {
 	}
 
 	private void addInput(DialogInputType type, String id, String name, String prompt, Object initialValue, List<Object> choices) {
-		elements.add(new DialogElement(type, id, name, prompt, initialValue, choices));
+		elements.add(new DialogElement(type, id, name, prompt, initialValue, null, null, choices));
+	}
+
+	private void addInput(DialogInputType type, String id, String name, String prompt, Object initialValue, Object min, Object max, List<Object> choices) {
+		elements.add(new DialogElement(type, id, name, prompt, initialValue, min, max, choices));
 	}
 
 	public SimpleInputDialog addString(String id, String name, String prompt) {
@@ -98,6 +103,16 @@ public class SimpleInputDialog {
 
 	public SimpleInputDialog addChoice(String id, String name, Object initialValue, List<? extends Object> choices) {
 		addInput(DialogInputType.CHOICE, id, name, null, initialValue, new ArrayList<>(choices));
+		return this;
+	}
+
+	public SimpleInputDialog addInteger(String id, String name, int initialValue, int min, int max) {
+		addInput(DialogInputType.INTEGER, id, name, null, initialValue, min, max, null);
+		return this;
+	}
+
+	public SimpleInputDialog addFloat(String id, String name, float initialValue, float min, float max) {
+		addInput(DialogInputType.FLOAT, id, name, null, initialValue, min, max, null);
 		return this;
 	}
 
@@ -252,6 +267,28 @@ public class SimpleInputDialog {
 					if(disabled.contains(e.getID())) cb.setDisable(true);
 					nodeValueFunctions.put(e.getID(), () -> cb.getSelectionModel().getSelectedItem());
 					grid.add(cb, 1, row);
+					break;
+				}
+				case INTEGER:
+				{
+					Slider slider = new Slider((int) e.getMin(), (int) e.getMax(), (int) e.getInitialValue());
+					slider.setPrefWidth(300);
+					GridPane.setHgrow(slider, Priority.ALWAYS);
+					slider.setMaxWidth(Double.MAX_VALUE);
+					if(disabled.contains(e.getID())) slider.setDisable(true);
+					nodeValueFunctions.put(e.getID(), () -> (int) slider.getValue());
+					grid.add(slider, 1, row);
+					break;
+				}
+				case FLOAT:
+				{
+					Slider slider = new Slider((float) e.getMin(), (float) e.getMax(), (float) e.getInitialValue());
+					slider.setPrefWidth(300);
+					GridPane.setHgrow(slider, Priority.ALWAYS);
+					slider.setMaxWidth(Double.MAX_VALUE);
+					if(disabled.contains(e.getID())) slider.setDisable(true);
+					nodeValueFunctions.put(e.getID(), () -> (float) slider.getValue());
+					grid.add(slider, 1, row);
 					break;
 				}
 				default:

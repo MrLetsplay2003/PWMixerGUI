@@ -7,6 +7,9 @@ public enum DialogInputType {
 	BOOLEAN,
 	FILE,
 	DIRECTORY,
-	CHOICE;
+	CHOICE,
+	INTEGER,
+	FLOAT,
+	;
 
 }

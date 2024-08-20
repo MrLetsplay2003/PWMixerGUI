@@ -1,17 +1,26 @@
 package me.mrletsplay.pwmixergui.channel;
 
+import java.io.IOException;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
+import javafx.stage.StageStyle;
 import me.mrletsplay.pwmixer.PWMixer;
 import me.mrletsplay.pwmixer.PWMixerUtil;
 import me.mrletsplay.pwmixergui.PWMixerGUI;
+import me.mrletsplay.pwmixergui.filter.FiltersController;
+import me.mrletsplay.pwmixergui.util.dialog.DialogData;
 
 public class ChannelController {
 
@@ -22,6 +31,9 @@ public class ChannelController {
 
 	@FXML
 	private VBox paneBackground;
+
+	@FXML
+	private Button buttonFilters;
 
 	@FXML
 	private Button buttonSelect;
@@ -54,6 +66,8 @@ public class ChannelController {
 
 			con.setVolume((float) PWMixerUtil.convertPerceivedVolumeToVolumeMultiplier(sliderVolume.getValue() / 100));
 		});
+
+		buttonFilters.disableProperty().bind(inputNotConnected);
 	}
 
 	public void init(OutputChannel channel) {
@@ -63,6 +77,8 @@ public class ChannelController {
 		sliderVolume.valueProperty().addListener(v -> {
 			PWMixer.ioSetVolume(output.getOutput(), (float) PWMixerUtil.convertPerceivedVolumeToVolumeMultiplier(sliderVolume.getValue() / 100));
 		});
+
+		buttonFilters.setVisible(false);
 	}
 
 	private void setName(String name) {
@@ -106,6 +122,41 @@ public class ChannelController {
 					in.getController().sliderVolume.setValue(PWMixerUtil.convertVolumeMultiplierToPerceivedVolume(con.getVolume()) * 100);
 				}
 			});
+		}
+	}
+
+	@FXML
+	void changeFilters(ActionEvent event) {
+//		SimpleInputDialog dialog = new SimpleInputDialog();
+//		dialog.addChoice("filter", "Filter", List.of("echo"));
+//		DialogData data = dialog.show("Add Filer", "Add a new filter to this channel");
+//
+//		OutputChannel out = PWMixerGUI.selectedChannel.get();
+//		switch(data.<String>get("filter")) {
+//			case "echo":
+//				PWMixer.ioSetFilterFunction(input.getInput(), out.getOutput(), new EchoFilter(100, -0.75f));
+//		}
+
+		try {
+			OutputChannel out = PWMixerGUI.selectedChannel.get();
+			ChannelConnection connection = out.getConnection(input);
+
+			FXMLLoader loader = new FXMLLoader(PWMixerGUI.class.getResource("/filters.fxml"));
+			Parent filters = loader.load();
+			FiltersController filtersController = loader.getController();
+			filtersController.init(connection);
+
+			Dialog<DialogData> dialog = new Dialog<>();
+			dialog.initOwner(PWMixerGUI.stage);
+			dialog.initStyle(StageStyle.UTILITY);
+			dialog.setTitle("Edit Filters");
+			dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+			dialog.getDialogPane().setContent(filters);
+
+			dialog.show();
+		}catch(IOException e) {
+			e.printStackTrace();
 		}
 	}
 

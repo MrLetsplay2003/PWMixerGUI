@@ -167,7 +167,6 @@ JNIEXPORT void JNICALL Java_me_mrletsplay_pwmixer_PWMixer_ioSetFilterFunction0(J
 		JavaFilterData *data = activeFilters[i];
 		if(data->in == input && data->out == output) {
 			// Another filter was active previously, free it
-			printf("Removing previous filter\n");
 			(*env)->DeleteGlobalRef(env, activeFilters[i]->filterFunction);
 			free(activeFilters[i]);
 
@@ -181,6 +180,8 @@ JNIEXPORT void JNICALL Java_me_mrletsplay_pwmixer_PWMixer_ioSetFilterFunction0(J
 			break;
 		}
 	}
+
+	if(filterFunction == NULL) return;
 
 	if(activeFiltersCount >= MAX_FILTERS) return; // TODO: return error
 
